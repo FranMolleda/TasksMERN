@@ -1,11 +1,11 @@
 const express = require("express");
-const dBConnect = require("./config/db");
+const dbConnect = require("./config/db");
 
 //Crear servidor
 const app = express();
 
 //Conectar a la DB
-dBConnect();
+dbConnect();
 
 // Habilitar express.json
 app.use(express.json({ extended: true }));
