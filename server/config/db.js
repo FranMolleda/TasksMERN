@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config({ path: "variables.env" });
 
-const dBConnect = async () => {
+const dbConnect = async () => {
   try {
     await mongoose.connect(process.env.DB_MONGO, {
       useNewUrlParser: true,
@@ -17,4 +17,4 @@ const dBConnect = async () => {
 
 mongoose.set("useCreateIndex", true);
 
-module.exports = dBConnect;
+module.exports = dbConnect;
