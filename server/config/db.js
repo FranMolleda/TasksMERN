@@ -8,11 +8,13 @@ const dBConnect = async () => {
       useUnifiedTopology: true,
       useFindAndModify: false,
     });
-    console.log("DB conectada");
+    console.log("DB conected");
   } catch (error) {
     console.log(error);
     process.exit(1); //en caso de error de conexion, detener la app
   }
 };
+
+mongoose.set("useCreateIndex", true);
 
 module.exports = dBConnect;
