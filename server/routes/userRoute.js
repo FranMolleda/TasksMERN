@@ -2,12 +2,12 @@
 
 const express = require("express");
 const router = express.Router();
-const userController = require("../controllers/userController");
+const userController = require("../controllers/usercontroller");
 const { check } = require("express-validator");
 
 //Crea un usuario
 // api/users
-//userController.createUser viene de userController, que lo hemos difinido aquí y .createUser del export de ../controllers/userController
+//usercontroller.createUser viene de usercontroller, que lo hemos difinido aquí y .createUser del export de ../controllers/userconntroller
 router.post(
   "/",
   [
