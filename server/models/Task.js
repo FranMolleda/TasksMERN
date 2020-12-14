@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const TaskSchemma = mongoose.Schema({
-  taskNmae: {
+  taskName: {
     type: String,
     required: true,
     trim: true,
@@ -20,4 +20,4 @@ const TaskSchemma = mongoose.Schema({
   },
 });
 
-module.exports = mongoos.model("Task", TaskSchemma);
+module.exports = mongoose.model("Task", TaskSchemma);

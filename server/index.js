@@ -14,9 +14,10 @@ app.use(express.json({ extended: true }));
 const PORT = process.env.PORT || 4000;
 
 //Importar rutas
-app.use("/api/users", require("./routes/userRoute"));
+app.use("/api/users", require("./routes/usersRoute"));
 app.use("/api/auth", require("./routes/authRoute"));
 app.use("/api/projects", require("./routes/projectsRoute"));
+app.use("/api/tasks", require("./routes/tasksRoute"));
 
 //Arrancar la app
 app.listen(PORT, () => {
