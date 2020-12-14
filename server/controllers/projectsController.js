@@ -1,6 +1,7 @@
 const Project = require("../models/Projects");
 const { validationResult } = require("express-validator");
 
+//Crud
 exports.createProject = async (req, res) => {
   // Revisar si hay errores
   const errors = validationResult(req);
@@ -25,6 +26,7 @@ exports.createProject = async (req, res) => {
   }
 };
 
+//cRud
 //Obtiene todos los proyectos del usuario actual
 
 exports.getUserProjects = async (req, res) => {
@@ -34,5 +36,47 @@ exports.getUserProjects = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send("There was an error");
+  }
+};
+
+//crUd
+//Actualizar proyecto
+
+exports.updateProject = async (req, res, next) => {
+  // Revisar si hay errores
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  //Extraer la información de un proyecto
+  const { projectName } = req.body;
+  const newProject = {};
+
+  if (projectName) {
+    newProject.projectName = projectName;
+  }
+  try {
+    // Revisar ID
+    let project = await Project.findById(req.params.id);
+    // Si el projecto existe o no
+    if (!project) {
+      res.status(404).json({ msg: "project not found" });
+    }
+    // Verificar el creador del proyecto
+    if (project.projectAuthor.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "not allowed" });
+    }
+
+    // actualizar
+
+    project = await Project.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: newProject },
+      { new: true }
+    );
+    res.json({ project });
+  } catch (error) {
+    res.status(500).send("Error in server");
   }
 };
