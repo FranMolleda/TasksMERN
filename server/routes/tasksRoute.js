@@ -23,4 +23,7 @@ router.get("/", auth, taskController.getTasks);
 //CrUd
 router.put("/:id", auth, taskController.updateTask);
 
+//cruD
+router.delete("/:id", auth, taskController.deleteTask);
+
 module.exports = router;
