@@ -97,3 +97,28 @@ exports.updateTask = async (req, res) => {
     res.status(500).send("There was an error");
   }
 };
+
+//cruD
+exports.deleteTask = async (req, res) => {
+  try {
+    const taskId = req.params.id;
+    const { project } = req.body;
+
+    let task = await Task.findById(taskId);
+    if (!task) return res.status(404).json({ msg: "Tasks not exists" });
+
+    //Extraer Poryecto
+    const projectExists = await Project.findById(project);
+
+    // Revisar si el proyecto actual pertenece al usuario autenticado
+    if (projectExists.projectAuthor.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "not allowed" });
+    }
+
+    await Task.findOneAndRemove({ _id: taskId });
+    res.json({ msg: "Task removed" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("There was an error");
+  }
+};
