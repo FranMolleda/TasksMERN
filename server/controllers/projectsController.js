@@ -59,7 +59,7 @@ exports.updateProject = async (req, res, next) => {
   try {
     // Revisar ID
     let project = await Project.findById(req.params.id);
-    // Si el projecto existe o no
+    // Si el proyecto existe o no
     if (!project) {
       res.status(404).json({ msg: "project not found" });
     }
