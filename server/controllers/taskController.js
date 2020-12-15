@@ -35,3 +35,27 @@ exports.createTask = async (req, res) => {
     res.status(500).send("there was an error");
   }
 };
+
+//cRud trae todas las tareas por proyecto
+exports.getTasks = async (req, res) => {
+  try {
+    //Extraemos el proyecto
+    const { project } = req.body;
+
+    const projectExists = await Project.findById(project);
+    if (!projectExists) {
+      return res.status(401).json({ msg: "project not found" });
+    }
+
+    //Revisar si el proyecto actual pertenece al usuario autenticado
+    if (projectExists.projectAuthor.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "not allowed" });
+    }
+
+    const tasks = await Task.find({ project });
+    res.send({ tasks });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("There was an error");
+  }
+};

@@ -6,6 +6,7 @@ const { check } = require("express-validator");
 
 //api/tasks
 
+//Crud
 router.post(
   "/",
   auth,
@@ -15,4 +16,8 @@ router.post(
   ],
   taskController.createTask
 );
+
+//cRud
+router.get("/", auth, taskController.getTasks);
+
 module.exports = router;
