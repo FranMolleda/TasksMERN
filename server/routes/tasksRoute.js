@@ -20,4 +20,7 @@ router.post(
 //cRud
 router.get("/", auth, taskController.getTasks);
 
+//CrUd
+router.put("/:id", auth, taskController.updateTask);
+
 module.exports = router;
