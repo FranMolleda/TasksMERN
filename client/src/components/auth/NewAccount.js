@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import AlertContext from "../../context/alertsContext/alertContext";
 
 const NewAccount = () => {
+  // Extraemos los valores del AlertContext
+  const alertContext = useContext(AlertContext);
+  const { alert, showAlert } = alertContext;
+
   //State para iniciar sesion
   const [user, setUser] = useState({
     name: "",
@@ -20,8 +25,13 @@ const NewAccount = () => {
     e.preventDefault();
 
     //Validar que no haya campos vacíos
-    if (email.trim() === "" || password.trim() === "") {
-      console.log("Vaciosssssss");
+    if (
+      email.trim() === "" ||
+      password.trim() === "" ||
+      name.trim() === "" ||
+      confirm.trim() === ""
+    ) {
+      showAlert("All fields are required", "alerta-error");
     } else {
       console.log("Completo");
     }
@@ -35,6 +45,9 @@ const NewAccount = () => {
 
   return (
     <div className="form-usuario">
+      {alert ? (
+        <div className={`alerta ${alert.category}`}>{alert.msg}</div>
+      ) : null}
       <div className="contenedor-form sombra-dark">
         <h1>Register</h1>
 
