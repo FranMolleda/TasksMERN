@@ -32,14 +32,19 @@ const NewAccount = () => {
       confirm.trim() === ""
     ) {
       showAlert("All fields are required", "alerta-error");
-    } else {
-      console.log("Completo");
+      return; //debemos poner el return para que no se ejecute la siguiente linea
     }
 
     // Password mínimo 6 caracteres
-
+    if (password.length < 6) {
+      showAlert("Password must be at least 6 characters", "alerta-error");
+      return;
+    }
     // Los 2 password sean iguales
-
+    if (password !== confirm) {
+      showAlert("Paswords are diferents", "alerta-error");
+      return;
+    }
     // Pasarlo a Action
   };
 
