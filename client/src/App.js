@@ -10,6 +10,7 @@ import AlertContext from "./context/alertsContext/alertState";
 import AuthContext from "./context/authContext/authState";
 
 function App() {
+  console.log(process.env.REACT_APP_BACKEND_URL);
   return (
     <StateProject>
       <TasksContext>
