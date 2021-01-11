@@ -10,8 +10,18 @@ import {
 export default (state, action) => {
   switch (action.type) {
     case REGISTER_OK:
+      localStorage.setItem("token", action.payload.token);
       return {
-        alert: action.payload,
+        ...state,
+        authenticated: true,
+        message: null,
+      };
+
+    case REGISTER_ERROR:
+      return {
+        ...state,
+        token: null,
+        message: action.payload,
       };
 
     default:
