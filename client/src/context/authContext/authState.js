@@ -3,6 +3,7 @@ import AuthContext from "./authContext";
 import AuthReducer from "./authReducer";
 
 import axiosClient from "../../config/axios";
+import tokenAuth from "../../config/tokenAuth";
 
 import {
   REGISTER_OK,
@@ -27,11 +28,13 @@ const AuthState = (props) => {
   const userRegister = async (data) => {
     try {
       const response = await axiosClient.post("/api/users", data);
-      console.log(response);
       dispatch({
         type: REGISTER_OK,
         payload: response.data,
       });
+
+      //Obtener el usuario
+      AuthUser();
     } catch (error) {
       //console.log(error.response.data.msg);
       const alert = {
@@ -42,6 +45,26 @@ const AuthState = (props) => {
       dispatch({
         type: REGISTER_ERROR,
         payload: alert,
+      });
+    }
+  };
+
+  //Devuelve el usuario autenticado
+  const AuthUser = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      tokenAuth(token);
+    }
+    try {
+      const response = await axiosClient.get("/api/auth");
+      //      console.log(response);
+      dispatch({
+        type: GET_USER,
+        payload: response.data.user,
+      });
+    } catch (error) {
+      dispatch({
+        type: LOGIN_ERROR,
       });
     }
   };
