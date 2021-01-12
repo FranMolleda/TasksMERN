@@ -4,19 +4,25 @@ import AuthContext from "../../context/authContext/authContext";
 const Header = () => {
   //Extraer la información de autenticación
   const authContext = useContext(AuthContext);
-  const { AuthUser, user } = authContext;
+  const { user, AuthUser, logOut } = authContext;
 
   useEffect(() => {
     AuthUser();
   }, []);
   return (
     <header className="app-header">
-      <p className="nombre-usuario">
-        Hola
-        {user ? <span> {user.name} </span> : null}
-      </p>
+      {user ? (
+        <p className="nombre-usuario">
+          Hola <span> {user.name} </span>
+        </p>
+      ) : null}
       <nav className="nav-principal">
-        <a href="#!">Log Out</a>
+        <button
+          className="btn btn-blank cerrar-sesion"
+          onClick={() => logOut()}
+        >
+          Cerrar Sesion
+        </button>
       </nav>
     </header>
   );
