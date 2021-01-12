@@ -16,7 +16,7 @@ const NewAccount = (props) => {
       props.history.push("/projects");
     }
     if (message) {
-      showAlert(message.msg, message.cathegory);
+      showAlert(message.msg, message.category);
     }
   }, [message, authenticated, props.history]);
   //State para iniciar sesion

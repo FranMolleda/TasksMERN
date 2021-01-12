@@ -28,6 +28,8 @@ const AuthState = (props) => {
   const userRegister = async (data) => {
     try {
       const response = await axiosClient.post("/api/users", data);
+      console.log(response.data);
+
       dispatch({
         type: REGISTER_OK,
         payload: response.data,
@@ -36,10 +38,9 @@ const AuthState = (props) => {
       //Obtener el usuario
       AuthUser();
     } catch (error) {
-      //console.log(error.response.data.msg);
       const alert = {
         msg: error.response.data.msg,
-        cathegory: "alerta-error",
+        category: "alerta-error",
       };
 
       dispatch({
@@ -57,7 +58,7 @@ const AuthState = (props) => {
     }
     try {
       const response = await axiosClient.get("/api/auth");
-      //      console.log(response);
+      console.log(response);
       dispatch({
         type: GET_USER,
         payload: response.data.user,
@@ -65,6 +66,31 @@ const AuthState = (props) => {
     } catch (error) {
       dispatch({
         type: LOGIN_ERROR,
+      });
+    }
+  };
+
+  //Cuando el usuario inicia sesion
+  const sessionInit = async (data) => {
+    try {
+      const response = await axiosClient.post("/api/auth", data);
+
+      dispatch({
+        type: LOGIN_OK,
+        payload: response.data,
+      });
+
+      AuthUser();
+    } catch (error) {
+      //console.log(error.response.data.msg);
+      const alert = {
+        msg: error.response.data.msg,
+        category: "alerta-error",
+      };
+
+      dispatch({
+        type: LOGIN_ERROR,
+        payload: alert,
       });
     }
   };
@@ -77,6 +103,7 @@ const AuthState = (props) => {
         user: state.user,
         message: state.message,
         userRegister,
+        sessionInit,
       }}
     >
       {props.children}
