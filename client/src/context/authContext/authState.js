@@ -94,6 +94,13 @@ const AuthState = (props) => {
     }
   };
 
+  //Cerrar la sesion de usuario
+  const logOut = () => {
+    dispatch({
+      type: LOGOUT_OK,
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -104,6 +111,7 @@ const AuthState = (props) => {
         userRegister,
         sessionInit,
         AuthUser,
+        logOut,
       }}
     >
       {props.children}
