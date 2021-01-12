@@ -8,6 +8,13 @@ import StateProject from "./context/projectsContext/StateProject";
 import TasksContext from "./context/tasksContext/StateTasks";
 import AlertContext from "./context/alertsContext/alertState";
 import AuthContext from "./context/authContext/authState";
+import tokenAuth from "./config/tokenAuth";
+
+//Revisar si tenemos un token
+const token = localStorage.getItem("token");
+if (token) {
+  tokenAuth(token);
+}
 
 function App() {
   return (
