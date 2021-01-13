@@ -11,8 +11,11 @@ const ProjectsList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (projects.length === 0)
-    return <p className="mensaje error">Add your Projects</p>;
+  if (projects.length === 0) {
+    setTimeout(() => {
+      return <p className="mensaje error">Add your Projects</p>;
+    }, 500);
+  }
 
   return (
     <ul className="listado-proyectos">

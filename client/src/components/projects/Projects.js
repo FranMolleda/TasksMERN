@@ -8,11 +8,14 @@ import AuthContext from "../../context/authContext/authContext";
 const Projects = () => {
   //Extraer la información de autenticación
   const authContext = useContext(AuthContext);
-  const { AuthUser } = authContext;
+  const { user, authUser } = authContext;
 
   useEffect(() => {
-    AuthUser();
+    authUser();
   }, []);
+
+  //Para que al recargar no se note la precarga en Hola (nombre) y cerrar sesion
+  if (!user) return null;
   return (
     <div className="contenedor-app">
       <Sidebar />
