@@ -4,10 +4,10 @@ import AuthContext from "../../context/authContext/authContext";
 const Header = () => {
   //Extraer la información de autenticación
   const authContext = useContext(AuthContext);
-  const { user, AuthUser, logOut } = authContext;
+  const { user, authUser, logOut } = authContext;
 
   useEffect(() => {
-    AuthUser();
+    authUser();
   }, []);
   return (
     <header className="app-header">

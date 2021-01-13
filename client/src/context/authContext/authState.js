@@ -20,6 +20,7 @@ const AuthState = (props) => {
     authenticated: null,
     user: null,
     message: null,
+    loading: true,
   };
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -36,7 +37,7 @@ const AuthState = (props) => {
       });
 
       //Obtener el usuario
-      AuthUser();
+      authUser();
     } catch (error) {
       const alert = {
         msg: error.response.data.msg,
@@ -51,7 +52,7 @@ const AuthState = (props) => {
   };
 
   //Devuelve el usuario autenticado
-  const AuthUser = async () => {
+  const authUser = async () => {
     const token = localStorage.getItem("token");
     if (token) {
       tokenAuth(token);
@@ -79,7 +80,7 @@ const AuthState = (props) => {
         payload: response.data,
       });
 
-      AuthUser();
+      authUser();
     } catch (error) {
       //console.log(error.response.data.msg);
       const alert = {
@@ -108,9 +109,10 @@ const AuthState = (props) => {
         authenticated: state.authenticated,
         user: state.user,
         message: state.message,
+        loading: state.loading,
         userRegister,
         sessionInit,
-        AuthUser,
+        authUser,
         logOut,
       }}
     >

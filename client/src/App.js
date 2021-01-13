@@ -9,6 +9,7 @@ import TasksContext from "./context/tasksContext/StateTasks";
 import AlertContext from "./context/alertsContext/alertState";
 import AuthContext from "./context/authContext/authState";
 import tokenAuth from "./config/tokenAuth";
+import PrivateRoute from "./components/routes/PrivateRoute";
 
 //Revisar si tenemos un token
 const token = localStorage.getItem("token");
@@ -26,7 +27,7 @@ function App() {
               <Switch>
                 <Route exact path="/" component={Login} />
                 <Route exact path="/new-account" component={NewAccount} />
-                <Route exact path="/projects" component={Projects} />
+                <PrivateRoute exact path="/projects" component={Projects} />
               </Switch>
             </Router>
           </AuthContext>
