@@ -9,7 +9,7 @@ const { check } = require("express-validator");
 router.post(
   "/",
   auth,
-  [check("projectName", "Project Name is required").not().isEmpty()],
+  [check("name", "Project Name is required").not().isEmpty()],
   projectController.createProject
 );
 
@@ -21,7 +21,7 @@ router.put(
   "/:id",
 
   auth,
-  [check("projectName", "Project Name is required").not().isEmpty()],
+  [check("name", "Project Name is required").not().isEmpty()],
 
   projectController.updateProject
 );

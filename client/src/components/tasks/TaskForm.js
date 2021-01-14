@@ -23,6 +23,7 @@ const TaskForm = () => {
         name: "",
       });
     }
+    // eslint-disable-next-line
   }, [taskselected]);
 
   const [task, setTask] = useState({
