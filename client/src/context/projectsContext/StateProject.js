@@ -15,6 +15,7 @@ import {
 import axiosClient from "../../config/axios";
 
 const StateProject = (props) => {
+  console.log(props);
   const initialState = {
     projects: [],
     form: false,
@@ -77,11 +78,17 @@ const StateProject = (props) => {
   };
 
   //Eliminar Task
-  const deleteTask = (projectId) => {
-    dispatch({
-      type: DELETE_TASK,
-      payload: projectId,
-    });
+  const deleteTask = async (projectId) => {
+    try {
+      await axiosClient.delete(`/api/projects/${projectId}`);
+
+      dispatch({
+        type: DELETE_TASK,
+        payload: projectId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -45,6 +45,7 @@ export default (state, action) => {
       };
 
     case DELETE_TASK:
+      console.log(action.payload);
       return {
         ...state,
         projects: state.projects.filter(
