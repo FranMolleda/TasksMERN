@@ -12,6 +12,7 @@ const Projects = () => {
 
   useEffect(() => {
     authUser();
+    // eslint-disable-next-line
   }, []);
 
   //Para que al recargar no se note la precarga en Hola (nombre) y cerrar sesion

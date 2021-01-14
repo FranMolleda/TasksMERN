@@ -1,8 +1,8 @@
 import React, { useReducer } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 import projectContext from "./ContextProject";
 import ReducerProject from "./ReducerProject";
+
 import {
   PROJECT_FORM,
   GET_PROJECTS,
@@ -12,12 +12,14 @@ import {
   DELETE_TASK,
 } from "../../types";
 
+import axiosClient from "../../config/axios";
+
 const StateProject = (props) => {
   const projects = [
-    { id: 1, name: "Virtual Shop" },
-    { id: 2, name: "Otro diferente" },
-    { id: 3, name: "Otro más" },
-    { id: 4, name: "Y Otro más" },
+    { _id: 1, name: "Virtual Shop" },
+    { _id: 2, name: "Otro diferente" },
+    { _id: 3, name: "Otro más" },
+    { _id: 4, name: "Y Otro más" },
   ];
   const initialState = {
     projects: [],
@@ -46,12 +48,18 @@ const StateProject = (props) => {
   };
 
   //Añadir nuevo proyecto
-  const addProject = (project) => {
-    project.id = uuidv4();
-    dispatch({
-      type: ADD_PROJECT,
-      payload: project,
-    });
+  const addProject = async (project) => {
+    console.log(project);
+    try {
+      const consult = await axiosClient.post("/api/projects", project);
+      console.log(consult.data);
+      dispatch({
+        type: ADD_PROJECT,
+        payload: consult.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //Validar formulario por errores

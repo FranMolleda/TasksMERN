@@ -50,11 +50,11 @@ exports.updateProject = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
   //Extraer la información de un proyecto
-  const { projectName } = req.body;
+  const { name } = req.body;
   const newProject = {};
 
-  if (projectName) {
-    newProject.projectName = projectName;
+  if (name) {
+    newProject.name = name;
   }
   try {
     // Revisar ID
