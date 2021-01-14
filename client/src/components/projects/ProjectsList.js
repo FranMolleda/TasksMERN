@@ -25,7 +25,7 @@ const ProjectsList = () => {
             <CSSTransition
               timeout={500}
               classNames="proyecto"
-              key={oneProject.id}
+              key={oneProject._id}
             >
               <OneProject oneProject={oneProject} />
             </CSSTransition>

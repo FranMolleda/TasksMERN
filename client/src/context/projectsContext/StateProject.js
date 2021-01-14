@@ -15,12 +15,6 @@ import {
 import axiosClient from "../../config/axios";
 
 const StateProject = (props) => {
-  const projects = [
-    { _id: 1, name: "Virtual Shop" },
-    { _id: 2, name: "Otro diferente" },
-    { _id: 3, name: "Otro más" },
-    { _id: 4, name: "Y Otro más" },
-  ];
   const initialState = {
     projects: [],
     form: false,
@@ -39,12 +33,17 @@ const StateProject = (props) => {
   };
 
   //Obtener los proyectos
-  const getProjects = () => {
-    dispatch({
-      type: GET_PROJECTS,
-      //el array que hemos declarado de proyectos va a ser el payload
-      payload: projects,
-    });
+  const getProjects = async () => {
+    try {
+      const result = await axiosClient.get("/api/projects");
+      dispatch({
+        type: GET_PROJECTS,
+        //el array que hemos declarado de proyectos va a ser el payload
+        payload: result.data.projects,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //Añadir nuevo proyecto
