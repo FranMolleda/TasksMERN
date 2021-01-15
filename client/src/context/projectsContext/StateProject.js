@@ -7,20 +7,21 @@ import {
   PROJECT_FORM,
   GET_PROJECTS,
   ADD_PROJECT,
+  PROJECT_ERROR,
   FORM_VALIDATE,
   ACTUAL_PROJECT,
-  DELETE_TASK,
+  DELETE_PROJECT,
 } from "../../types";
 
 import axiosClient from "../../config/axios";
 
 const StateProject = (props) => {
-  console.log(props);
   const initialState = {
     projects: [],
     form: false,
     formerror: false,
     project: null,
+    message: null,
   };
 
   //Dispatch para ejecutar las acciones
@@ -43,7 +44,14 @@ const StateProject = (props) => {
         payload: result.data.projects,
       });
     } catch (error) {
-      console.log(error);
+      const alert = {
+        msg: "There was an error",
+        cathegory: "alerta-error",
+      };
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: alert,
+      });
     }
   };
 
@@ -58,7 +66,14 @@ const StateProject = (props) => {
         payload: consult.data,
       });
     } catch (error) {
-      console.log(error);
+      const alert = {
+        msg: "There was an error",
+        cathegory: "alerta-error",
+      };
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: alert,
+      });
     }
   };
 
@@ -83,11 +98,18 @@ const StateProject = (props) => {
       await axiosClient.delete(`/api/projects/${projectId}`);
 
       dispatch({
-        type: DELETE_TASK,
+        type: DELETE_PROJECT,
         payload: projectId,
       });
     } catch (error) {
-      console.log(error);
+      const alert = {
+        msg: "There was an error",
+        cathegory: "alerta-error",
+      };
+      dispatch({
+        type: PROJECT_ERROR,
+        payload: alert,
+      });
     }
   };
 
@@ -98,6 +120,7 @@ const StateProject = (props) => {
         form: state.form,
         formerror: state.formerror,
         project: state.project,
+        message: state.message,
         showForm,
         getProjects,
         addProject,
