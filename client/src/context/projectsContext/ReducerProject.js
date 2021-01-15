@@ -2,9 +2,10 @@ import {
   PROJECT_FORM,
   GET_PROJECTS,
   ADD_PROJECT,
+  PROJECT_ERROR,
   FORM_VALIDATE,
   ACTUAL_PROJECT,
-  DELETE_TASK,
+  DELETE_PROJECT,
 } from "../../types";
 
 export default (state, action) => {
@@ -44,14 +45,19 @@ export default (state, action) => {
         ),
       };
 
-    case DELETE_TASK:
-      console.log(action.payload);
+    case DELETE_PROJECT:
       return {
         ...state,
         projects: state.projects.filter(
           (project) => project._id !== action.payload
         ),
         project: null,
+      };
+
+    case PROJECT_ERROR:
+      return {
+        ...state,
+        message: action.payload,
       };
 
     default:
