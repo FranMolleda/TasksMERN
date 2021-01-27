@@ -6,6 +6,7 @@ const Header = () => {
   const authContext = useContext(AuthContext);
   const { user, authUser, logOut } = authContext;
 
+  //UseEffect
   useEffect(() => {
     authUser();
     // eslint-disable-next-line
