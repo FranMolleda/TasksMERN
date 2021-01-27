@@ -66,7 +66,7 @@ exports.updateTask = async (req, res) => {
   try {
     const taskId = req.params.id;
     //Extraemos el proyecto
-    const { project, taskName, taskState } = req.body;
+    const { project, name, taskState } = req.body;
 
     //Si la tarea existe o no
     let task = await Task.findById(taskId);
@@ -84,7 +84,7 @@ exports.updateTask = async (req, res) => {
     }
 
     const newTask = {};
-    if (taskName) newTask.taskName = taskName;
+    if (name) newTask.name = name;
     if (taskState) newTask.taskState = taskState;
 
     //Guardar la tarea

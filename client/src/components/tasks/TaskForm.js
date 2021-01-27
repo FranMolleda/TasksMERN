@@ -53,8 +53,7 @@ const TaskForm = () => {
     //Si es edicion o nueva tarea
     if (taskselected === null) {
       //Agregar la tarea al state de tareas
-      task.projectId = ActualProyect.id;
-      task.state = false;
+      task.project = ActualProyect._id;
       addTasks(task);
     } else {
       //actualizar tarea existente

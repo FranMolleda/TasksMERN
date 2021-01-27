@@ -2,8 +2,6 @@ import React, { useReducer } from "react";
 import taskContext from "./ContextTasks";
 import ReducerTasks from "./ReducerTasks";
 
-import { v4 as uuidv4 } from "uuid";
-
 import {
   TASKS_PROJECT,
   ADD_TASKS,
@@ -14,24 +12,11 @@ import {
   UPDATE_TASK,
 } from "../../types";
 
+import axiosClient from "../../config/axios";
+
 const TasksContext = (props) => {
   const initialState = {
-    tasks: [
-      { id: 1, name: "Choose Platform", state: true, projectId: 1 },
-      { id: 2, name: "Choose Color", state: false, projectId: 2 },
-      { id: 3, name: "Choose Pay Platform", state: true, projectId: 3 },
-      { id: 4, name: "Choose Hosting", state: false, projectId: 4 },
-      { id: 5, name: "Choose Platform", state: true, projectId: 1 },
-      { id: 6, name: "Choose Color", state: false, projectId: 2 },
-      { id: 7, name: "Choose Pay Platform", state: true, projectId: 3 },
-      { id: 8, name: "Choose Platform", state: true, projectId: 4 },
-      { id: 9, name: "Choose Color", state: false, projectId: 2 },
-      { id: 10, name: "Choose Pay Platform", state: true, projectId: 1 },
-      { id: 11, name: "Choose Platform", state: true, projectId: 3 },
-      { id: 12, name: "Choose Color", state: false, projectId: 4 },
-      { id: 13, name: "Choose Pay Platform", state: true, projectId: 2 },
-    ],
-    tasksproject: null,
+    tasksproject: [],
     taskerror: false,
     taskselected: null,
   };
@@ -49,12 +34,18 @@ const TasksContext = (props) => {
   };
 
   //Agregar Tareas al proyecto seleccionado
-  const addTasks = (task) => {
-    task.id = uuidv4();
-    dispatch({
-      type: ADD_TASKS,
-      payload: task,
-    });
+  const addTasks = async (task) => {
+    console.log(task);
+    try {
+      const result = await axiosClient.post("/api/tasks", task);
+      console.log(result);
+      dispatch({
+        type: ADD_TASKS,
+        payload: task,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //Valida y muestra un error en caso de que sea necesario
@@ -99,7 +90,6 @@ const TasksContext = (props) => {
   return (
     <taskContext.Provider
       value={{
-        tasks: state.tasks,
         tasksproject: state.tasksproject,
         taskerror: state.taskerror,
         taskselected: state.taskselected,
