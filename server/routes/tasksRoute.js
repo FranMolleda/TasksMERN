@@ -11,7 +11,7 @@ router.post(
   "/",
   auth,
   [
-    check("taskName", "Task name is required").not().isEmpty(),
+    check("name", "Task name is required").not().isEmpty(),
     check("project", "project is required").not().isEmpty(),
   ],
   taskController.createTask

@@ -10,6 +10,7 @@ import {
 
 export default (state, action) => {
   switch (action.type) {
+    //El case, enlaza con el type dentro de cada función del StateProject y cambia el estado que hay dentro del return
     case PROJECT_FORM:
       return {
         ...state,

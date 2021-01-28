@@ -24,7 +24,7 @@ const StateProject = (props) => {
     message: null,
   };
 
-  //Dispatch para ejecutar las acciones
+  //Dispatch para ejecutar las acciones, viene a ser el setState de useState
   const [state, dispatch] = useReducer(ReducerProject, initialState);
 
   //Serie de funciones para el CRUD
@@ -40,7 +40,7 @@ const StateProject = (props) => {
       const result = await axiosClient.get("/api/projects");
       dispatch({
         type: GET_PROJECTS,
-        //el array que hemos declarado de proyectos va a ser el payload
+        //payload es el valor que vamos a introducir en la variable correspondiente. En este caso, como vemos en ReducerProject, payload es projects y en ReducerProjects se recoge como projects: action.payload
         payload: result.data.projects,
       });
     } catch (error) {
@@ -57,10 +57,8 @@ const StateProject = (props) => {
 
   //Añadir nuevo proyecto
   const addProject = async (project) => {
-    console.log(project);
     try {
       const consult = await axiosClient.post("/api/projects", project);
-      console.log(consult.data);
       dispatch({
         type: ADD_PROJECT,
         payload: consult.data,
